@@ -1,0 +1,1261 @@
+openapi: 3.0.0
+info:
+  title: Swagger Petstore - written in Swift
+  description: This is a sample Pet Store Server based on the OpenAPI 3.0 specification
+    generated using Swift & OpenAPIKit.
+  contact:
+    name: Binary Birds
+    url: https://binarybirds.com
+    email: info@binarybirds.com
+  version: 1.0.0
+tags:
+- name: Categories
+  description: Pet categories, such as cat, dog, etc.
+- name: Tags
+  description: Pet tags, such as tabby, brown, etc.
+- name: Pets
+  description: Everything about pets...
+servers:
+- url: http://127.0.0.1:8080
+  description: dev
+- url: http://127.0.0.1:8081
+  description: live
+paths:
+  /categories:
+    get:
+      tags:
+      - Categories
+      summary: Find categories
+      description: List categories
+      operationId: listCategories
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/size'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/categorySort'
+      - $ref: '#/components/parameters/order'
+      responses:
+        200:
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CategoryList'
+                  metadata:
+                    type: object
+                    properties:
+                      page:
+                        type: object
+                        properties:
+                          size:
+                            type: integer
+                            default: 50
+                            example: 25
+                            maximum: 1000
+                            minimum: 10
+                          current:
+                            type: integer
+                            default: 0
+                            example: 12
+                            minimum: 0
+                          total:
+                            type: integer
+                            default: 0
+                            example: 42
+                            minimum: 0
+                        required:
+                        - size
+                        - current
+                        - total
+                      items:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                            default: 0
+                            example: 69
+                            minimum: 0
+                        required:
+                        - total
+                      sort:
+                        type: object
+                        properties:
+                          by:
+                            type: string
+                            enum:
+                            - asc
+                            - desc
+                            default: asc
+                            description: Sort the list by ascending or descending
+                              order
+                          order:
+                            type: string
+                            description: Field key to order the list
+                      search:
+                        type: string
+                        description: Search term
+                    required:
+                    - page
+                    - items
+                    - sort
+                required:
+                - items
+                - metadata
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Categories
+      summary: Create a category
+      description: Creates a new category object
+      operationId: createCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryCreate'
+      responses:
+        200:
+          description: The details of a category object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Categories
+      summary: Bulk delete categories
+      description: Removes multiple categories objects at once
+      operationId: deleteCategories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                format: uuid
+                description: Unique identifier
+                example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+  /categories/{categoryId}:
+    get:
+      tags:
+      - Categories
+      summary: Category details
+      description: Get the details of a category object
+      operationId: getCategory
+      parameters:
+      - $ref: '#/components/parameters/categoryId'
+      responses:
+        200:
+          description: The details of a category object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - Categories
+      summary: Update a category object
+      description: Updates an entire category object
+      operationId: updateCategory
+      parameters:
+      - $ref: '#/components/parameters/categoryId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryUpdate'
+      responses:
+        200:
+          description: The details of the patched category object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Categories
+      summary: Delete a category object
+      description: Removes a category object using the unique identifier
+      operationId: deleteCategory
+      parameters:
+      - $ref: '#/components/parameters/categoryId'
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Categories
+      summary: Patch a category object
+      description: Patch the properties of a given category object
+      operationId: patchCategory
+      parameters:
+      - $ref: '#/components/parameters/categoryId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryPatch'
+      responses:
+        200:
+          description: The details of the patched category object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+  /tags:
+    get:
+      tags:
+      - Tags
+      summary: Find tags
+      description: List tags
+      operationId: listTags
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/size'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/tagSort'
+      - $ref: '#/components/parameters/order'
+      responses:
+        200:
+          description: List of tags
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagList'
+                  metadata:
+                    type: object
+                    properties:
+                      page:
+                        type: object
+                        properties:
+                          size:
+                            type: integer
+                            default: 50
+                            example: 25
+                            maximum: 1000
+                            minimum: 10
+                          current:
+                            type: integer
+                            default: 0
+                            example: 12
+                            minimum: 0
+                          total:
+                            type: integer
+                            default: 0
+                            example: 42
+                            minimum: 0
+                        required:
+                        - size
+                        - current
+                        - total
+                      items:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                            default: 0
+                            example: 69
+                            minimum: 0
+                        required:
+                        - total
+                      sort:
+                        type: object
+                        properties:
+                          by:
+                            type: string
+                            enum:
+                            - asc
+                            - desc
+                            default: asc
+                            description: Sort the list by ascending or descending
+                              order
+                          order:
+                            type: string
+                            description: Field key to order the list
+                      search:
+                        type: string
+                        description: Search term
+                    required:
+                    - page
+                    - items
+                    - sort
+                required:
+                - items
+                - metadata
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Tags
+      summary: Create a tag
+      description: Creates a new tag object
+      operationId: createTag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCreate'
+      responses:
+        200:
+          description: The details of a tag object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Tags
+      summary: Bulk delete tags
+      description: Removes multiple tag objects at once
+      operationId: deleteTags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                format: uuid
+                description: Unique identifier
+                example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+  /tags/{tagId}:
+    get:
+      tags:
+      - Tags
+      summary: Tag details
+      description: Get the details of a tag object
+      operationId: getTag
+      parameters:
+      - $ref: '#/components/parameters/tagId'
+      responses:
+        200:
+          description: The details of a tag object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - Tags
+      summary: Update a tag object
+      description: Updates an entire tag object
+      operationId: updateTag
+      parameters:
+      - $ref: '#/components/parameters/tagId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagUpdate'
+      responses:
+        200:
+          description: The details of the patched tag object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Tags
+      summary: Delete a tag object
+      description: Removes a tag object using the unique identifier
+      operationId: deleteTag
+      parameters:
+      - $ref: '#/components/parameters/tagId'
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Tags
+      summary: Patch a tag object
+      description: Patch the properties of a given tag object
+      operationId: patchTag
+      parameters:
+      - $ref: '#/components/parameters/tagId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagPatch'
+      responses:
+        200:
+          description: The details of the patched tag object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+  /pets:
+    get:
+      tags:
+      - Pets
+      summary: Find pets
+      description: List pets and filter by status
+      operationId: listPets
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/size'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/petSort'
+      - $ref: '#/components/parameters/order'
+      responses:
+        200:
+          description: List of pets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PetList'
+                  metadata:
+                    type: object
+                    properties:
+                      page:
+                        type: object
+                        properties:
+                          size:
+                            type: integer
+                            default: 50
+                            example: 25
+                            maximum: 1000
+                            minimum: 10
+                          current:
+                            type: integer
+                            default: 0
+                            example: 12
+                            minimum: 0
+                          total:
+                            type: integer
+                            default: 0
+                            example: 42
+                            minimum: 0
+                        required:
+                        - size
+                        - current
+                        - total
+                      items:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                            default: 0
+                            example: 69
+                            minimum: 0
+                        required:
+                        - total
+                      sort:
+                        type: object
+                        properties:
+                          by:
+                            type: string
+                            enum:
+                            - asc
+                            - desc
+                            default: asc
+                            description: Sort the list by ascending or descending
+                              order
+                          order:
+                            type: string
+                            description: Field key to order the list
+                      search:
+                        type: string
+                        description: Search term
+                    required:
+                    - page
+                    - items
+                    - sort
+                required:
+                - items
+                - metadata
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Pets
+      summary: Create a pet
+      description: Creates a new pet object
+      operationId: createPet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetCreate'
+      responses:
+        200:
+          description: The details of a pet object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Pets
+      summary: Bulk delete pets
+      description: Removes multiple pet objects at once
+      operationId: deletePets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                format: uuid
+                description: Unique identifier
+                example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+  /pets/{petId}:
+    get:
+      tags:
+      - Pets
+      summary: Pet details
+      description: Get the details of a pet object
+      operationId: getPet
+      parameters:
+      - $ref: '#/components/parameters/petId'
+      responses:
+        200:
+          description: The details of a pet object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - Pets
+      summary: Update a pet object
+      description: Updates an entire pet object
+      operationId: updatePet
+      parameters:
+      - $ref: '#/components/parameters/petId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetUpdate'
+      responses:
+        200:
+          description: The details of the patched pet object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Pets
+      summary: Delete a pet object
+      description: Removes a pet object using the unique identifier
+      operationId: deletePet
+      parameters:
+      - $ref: '#/components/parameters/petId'
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Pets
+      summary: Patch a pet object
+      description: Patch the properties of a given pet object
+      operationId: patchPet
+      parameters:
+      - $ref: '#/components/parameters/petId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetPatch'
+      responses:
+        200:
+          description: The details of the patched pet object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetDetail'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The user facing error message
+          example: Something went wrong with the request.
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: The error key
+                example: field
+              message:
+                type: string
+                description: The user facing error message
+                example: Something is wrong with the field.
+            required:
+            - key
+            - message
+      required:
+      - message
+      - details
+    CategoryReference:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the category
+          example: Cat
+      required:
+      - id
+      - name
+    CategoryList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the category
+          example: Cat
+      required:
+      - id
+      - name
+    CategoryDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the category
+          example: Cat
+      required:
+      - id
+      - name
+    CategoryCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the category
+          example: Cat
+      required:
+      - name
+    CategoryUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the category
+          example: Cat
+      required:
+      - name
+    CategoryPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the category
+          example: Cat
+    TagReference:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the tag
+          example: Tabby
+      required:
+      - id
+      - name
+    TagList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the tag
+          example: Tabby
+      required:
+      - id
+      - name
+    TagDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the tag
+          example: Tabby
+      required:
+      - id
+      - name
+    TagCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the tag
+          example: Tabby
+      required:
+      - name
+    TagUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the tag
+          example: Tabby
+      required:
+      - name
+    TagPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the tag
+          example: Tabby
+    PetReference:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the pet
+          example: Lucky
+      required:
+      - id
+      - name
+    PetList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the pet
+          example: Lucky
+        imageUrl:
+          type: string
+          format: uri
+          description: URL
+          example: https://placekitten.com/512/512
+        status:
+          type: string
+          enum:
+          - available
+          - pending
+          - sold
+          default: available
+          description: Pet status in the store
+      required:
+      - id
+      - name
+      - imageUrl
+    PetDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        name:
+          type: string
+          description: Name of the pet
+          example: Lucky
+        status:
+          type: string
+          enum:
+          - available
+          - pending
+          - sold
+          default: available
+          description: Pet status in the store
+        imageUrl:
+          type: string
+          format: uri
+          description: URL
+          example: https://placekitten.com/512/512
+        category:
+          $ref: '#/components/schemas/CategoryReference'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagReference'
+      required:
+      - id
+      - name
+      - imageUrl
+      - category
+      - tags
+    PetCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the pet
+          example: Lucky
+        status:
+          type: string
+          enum:
+          - available
+          - pending
+          - sold
+          default: available
+          description: Pet status in the store
+        imageUrl:
+          type: string
+          format: uri
+          description: URL
+          example: https://placekitten.com/512/512
+        categoryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+            description: Unique identifier
+            example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        tagId:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+      required:
+      - name
+      - imageUrl
+      - categoryIds
+      - tagId
+    PetUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the pet
+          example: Lucky
+        status:
+          type: string
+          enum:
+          - available
+          - pending
+          - sold
+          default: available
+          description: Pet status in the store
+        imageUrl:
+          type: string
+          format: uri
+          description: URL
+          example: https://placekitten.com/512/512
+        categoryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+            description: Unique identifier
+            example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        tagId:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+      required:
+      - name
+      - imageUrl
+      - categoryIds
+      - tagId
+    PetPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the pet
+          example: Lucky
+        status:
+          type: string
+          enum:
+          - available
+          - pending
+          - sold
+          default: available
+          description: Pet status in the store
+        imageUrl:
+          type: string
+          format: uri
+          description: URL
+          example: https://placekitten.com/512/512
+        categoryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+            description: Unique identifier
+            example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+        tagId:
+          type: string
+          format: uuid
+          description: Unique identifier
+          example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+  responses:
+    204:
+      description: No content
+    400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    404:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    categoryId:
+      name: categoryId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        description: Unique identifier
+        example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+    categorySort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum:
+        - name
+        default: name
+        example: name
+      description: Sort with the given value
+    tagId:
+      name: tagId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        description: Unique identifier
+        example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+    tagSort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum:
+        - name
+        default: name
+        example: name
+      description: Sort with the given value
+    petId:
+      name: petId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        description: Unique identifier
+        example: 4DB59768-CDFA-4608-BA60-4673A3CB015E
+    petSort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum:
+        - name
+        - status
+        default: name
+        example: name
+      description: Sort with the given value
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        title: page
+        example: 1
+        minimum: 1
+      description: Page offset of the list
+    size:
+      name: size
+      in: query
+      schema:
+        type: integer
+        default: 50
+        title: size
+        example: 50
+        minimum: 1
+      description: Number of items per page
+    search:
+      name: search
+      in: query
+      schema:
+        type: string
+        example: ''
+      description: Search with some value
+    order:
+      name: order
+      in: query
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        example: asc
+      description: Order the results ascending or descending (asc, desc)
+  securitySchemes:
+    bearerAuth:
+      description: Authorization header using a Bearer token
+      type: http
+      scheme: bearer
+      bearerFormat: token

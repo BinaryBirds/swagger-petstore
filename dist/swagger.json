@@ -1,0 +1,1937 @@
+{
+  "servers" : [
+    {
+      "url" : "http://127.0.0.1:8080",
+      "description" : "dev"
+    },
+    {
+      "url" : "http://127.0.0.1:8081",
+      "description" : "live"
+    }
+  ],
+  "tags" : [
+    {
+      "name" : "Categories",
+      "description" : "Pet categories, such as cat, dog, etc."
+    },
+    {
+      "name" : "Tags",
+      "description" : "Pet tags, such as tabby, brown, etc."
+    },
+    {
+      "name" : "Pets",
+      "description" : "Everything about pets..."
+    }
+  ],
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "Swagger Petstore - written in Swift",
+    "description" : "This is a sample Pet Store Server based on the OpenAPI 3.0 specification generated using Swift & OpenAPIKit.",
+    "contact" : {
+      "name" : "Binary Birds",
+      "url" : "https://binarybirds.com",
+      "email" : "info@binarybirds.com"
+    }
+  },
+  "paths" : {
+    "/pets/{petId}" : {
+      "get" : {
+        "operationId" : "getPet",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Pet details",
+        "responses" : {
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PetDetail"
+                }
+              }
+            },
+            "description" : "The details of a pet object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Get the details of a pet object",
+        "tags" : [
+          "Pets"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/petId"
+          }
+        ]
+      },
+      "put" : {
+        "operationId" : "updatePet",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PetUpdate"
+              }
+            }
+          }
+        },
+        "summary" : "Update a pet object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PetDetail"
+                }
+              }
+            },
+            "description" : "The details of the patched pet object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Updates an entire pet object",
+        "tags" : [
+          "Pets"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/petId"
+          }
+        ]
+      },
+      "patch" : {
+        "operationId" : "patchPet",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PetPatch"
+              }
+            }
+          }
+        },
+        "summary" : "Patch a pet object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "responses" : {
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PetDetail"
+                }
+              }
+            },
+            "description" : "The details of the patched pet object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Patch the properties of a given pet object",
+        "tags" : [
+          "Pets"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/petId"
+          }
+        ]
+      },
+      "delete" : {
+        "operationId" : "deletePet",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Delete a pet object",
+        "responses" : {
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "204" : {
+            "$ref" : "#/components/responses/204"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Removes a pet object using the unique identifier",
+        "tags" : [
+          "Pets"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/petId"
+          }
+        ]
+      }
+    },
+    "/tags/{tagId}" : {
+      "get" : {
+        "operationId" : "getTag",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Tag details",
+        "responses" : {
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagDetail"
+                }
+              }
+            },
+            "description" : "The details of a tag object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Get the details of a tag object",
+        "tags" : [
+          "Tags"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/tagId"
+          }
+        ]
+      },
+      "put" : {
+        "operationId" : "updateTag",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TagUpdate"
+              }
+            }
+          }
+        },
+        "summary" : "Update a tag object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagDetail"
+                }
+              }
+            },
+            "description" : "The details of the patched tag object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Updates an entire tag object",
+        "tags" : [
+          "Tags"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/tagId"
+          }
+        ]
+      },
+      "patch" : {
+        "operationId" : "patchTag",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TagPatch"
+              }
+            }
+          }
+        },
+        "summary" : "Patch a tag object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "responses" : {
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagDetail"
+                }
+              }
+            },
+            "description" : "The details of the patched tag object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Patch the properties of a given tag object",
+        "tags" : [
+          "Tags"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/tagId"
+          }
+        ]
+      },
+      "delete" : {
+        "operationId" : "deleteTag",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Delete a tag object",
+        "responses" : {
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "204" : {
+            "$ref" : "#/components/responses/204"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Removes a tag object using the unique identifier",
+        "tags" : [
+          "Tags"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/tagId"
+          }
+        ]
+      }
+    },
+    "/categories" : {
+      "get" : {
+        "operationId" : "listCategories",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Find categories",
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "items" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/CategoryList"
+                      }
+                    },
+                    "metadata" : {
+                      "type" : "object",
+                      "properties" : {
+                        "search" : {
+                          "type" : "string",
+                          "description" : "Search term"
+                        },
+                        "items" : {
+                          "type" : "object",
+                          "properties" : {
+                            "total" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 69
+                            }
+                          },
+                          "required" : [
+                            "total"
+                          ]
+                        },
+                        "sort" : {
+                          "type" : "object",
+                          "properties" : {
+                            "order" : {
+                              "type" : "string",
+                              "description" : "Field key to order the list"
+                            },
+                            "by" : {
+                              "default" : "asc",
+                              "enum" : [
+                                "asc",
+                                "desc"
+                              ],
+                              "type" : "string",
+                              "description" : "Sort the list by ascending or descending order"
+                            }
+                          }
+                        },
+                        "page" : {
+                          "type" : "object",
+                          "properties" : {
+                            "current" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 12
+                            },
+                            "size" : {
+                              "default" : 50,
+                              "minimum" : 10,
+                              "type" : "integer",
+                              "example" : 25,
+                              "maximum" : 1000
+                            },
+                            "total" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 42
+                            }
+                          },
+                          "required" : [
+                            "size",
+                            "current",
+                            "total"
+                          ]
+                        }
+                      },
+                      "required" : [
+                        "page",
+                        "items",
+                        "sort"
+                      ]
+                    }
+                  },
+                  "required" : [
+                    "items",
+                    "metadata"
+                  ]
+                }
+              }
+            },
+            "description" : "List of categories"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "List categories",
+        "tags" : [
+          "Categories"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/page"
+          },
+          {
+            "$ref" : "#/components/parameters/size"
+          },
+          {
+            "$ref" : "#/components/parameters/search"
+          },
+          {
+            "$ref" : "#/components/parameters/categorySort"
+          },
+          {
+            "$ref" : "#/components/parameters/order"
+          }
+        ]
+      },
+      "post" : {
+        "operationId" : "createCategory",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CategoryCreate"
+              }
+            }
+          }
+        },
+        "summary" : "Create a category",
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CategoryDetail"
+                }
+              }
+            },
+            "description" : "The details of a category object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Creates a new category object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "tags" : [
+          "Categories"
+        ]
+      },
+      "delete" : {
+        "operationId" : "deleteCategories",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+                  "type" : "string",
+                  "description" : "Unique identifier",
+                  "format" : "uuid"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Bulk delete categories",
+        "responses" : {
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "204" : {
+            "$ref" : "#/components/responses/204"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Removes multiple categories objects at once",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "tags" : [
+          "Categories"
+        ]
+      }
+    },
+    "/pets" : {
+      "get" : {
+        "operationId" : "listPets",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Find pets",
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "items" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/PetList"
+                      }
+                    },
+                    "metadata" : {
+                      "type" : "object",
+                      "properties" : {
+                        "search" : {
+                          "type" : "string",
+                          "description" : "Search term"
+                        },
+                        "items" : {
+                          "type" : "object",
+                          "properties" : {
+                            "total" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 69
+                            }
+                          },
+                          "required" : [
+                            "total"
+                          ]
+                        },
+                        "sort" : {
+                          "type" : "object",
+                          "properties" : {
+                            "order" : {
+                              "type" : "string",
+                              "description" : "Field key to order the list"
+                            },
+                            "by" : {
+                              "default" : "asc",
+                              "enum" : [
+                                "asc",
+                                "desc"
+                              ],
+                              "type" : "string",
+                              "description" : "Sort the list by ascending or descending order"
+                            }
+                          }
+                        },
+                        "page" : {
+                          "type" : "object",
+                          "properties" : {
+                            "current" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 12
+                            },
+                            "size" : {
+                              "default" : 50,
+                              "minimum" : 10,
+                              "type" : "integer",
+                              "example" : 25,
+                              "maximum" : 1000
+                            },
+                            "total" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 42
+                            }
+                          },
+                          "required" : [
+                            "size",
+                            "current",
+                            "total"
+                          ]
+                        }
+                      },
+                      "required" : [
+                        "page",
+                        "items",
+                        "sort"
+                      ]
+                    }
+                  },
+                  "required" : [
+                    "items",
+                    "metadata"
+                  ]
+                }
+              }
+            },
+            "description" : "List of pets"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "List pets and filter by status",
+        "tags" : [
+          "Pets"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/page"
+          },
+          {
+            "$ref" : "#/components/parameters/size"
+          },
+          {
+            "$ref" : "#/components/parameters/search"
+          },
+          {
+            "$ref" : "#/components/parameters/petSort"
+          },
+          {
+            "$ref" : "#/components/parameters/order"
+          }
+        ]
+      },
+      "post" : {
+        "operationId" : "createPet",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PetCreate"
+              }
+            }
+          }
+        },
+        "summary" : "Create a pet",
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PetDetail"
+                }
+              }
+            },
+            "description" : "The details of a pet object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Creates a new pet object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "tags" : [
+          "Pets"
+        ]
+      },
+      "delete" : {
+        "operationId" : "deletePets",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+                  "type" : "string",
+                  "description" : "Unique identifier",
+                  "format" : "uuid"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Bulk delete pets",
+        "responses" : {
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "204" : {
+            "$ref" : "#/components/responses/204"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Removes multiple pet objects at once",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "tags" : [
+          "Pets"
+        ]
+      }
+    },
+    "/tags" : {
+      "get" : {
+        "operationId" : "listTags",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Find tags",
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "items" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/TagList"
+                      }
+                    },
+                    "metadata" : {
+                      "type" : "object",
+                      "properties" : {
+                        "search" : {
+                          "type" : "string",
+                          "description" : "Search term"
+                        },
+                        "items" : {
+                          "type" : "object",
+                          "properties" : {
+                            "total" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 69
+                            }
+                          },
+                          "required" : [
+                            "total"
+                          ]
+                        },
+                        "sort" : {
+                          "type" : "object",
+                          "properties" : {
+                            "order" : {
+                              "type" : "string",
+                              "description" : "Field key to order the list"
+                            },
+                            "by" : {
+                              "default" : "asc",
+                              "enum" : [
+                                "asc",
+                                "desc"
+                              ],
+                              "type" : "string",
+                              "description" : "Sort the list by ascending or descending order"
+                            }
+                          }
+                        },
+                        "page" : {
+                          "type" : "object",
+                          "properties" : {
+                            "current" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 12
+                            },
+                            "size" : {
+                              "default" : 50,
+                              "minimum" : 10,
+                              "type" : "integer",
+                              "example" : 25,
+                              "maximum" : 1000
+                            },
+                            "total" : {
+                              "default" : 0,
+                              "minimum" : 0,
+                              "type" : "integer",
+                              "example" : 42
+                            }
+                          },
+                          "required" : [
+                            "size",
+                            "current",
+                            "total"
+                          ]
+                        }
+                      },
+                      "required" : [
+                        "page",
+                        "items",
+                        "sort"
+                      ]
+                    }
+                  },
+                  "required" : [
+                    "items",
+                    "metadata"
+                  ]
+                }
+              }
+            },
+            "description" : "List of tags"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "List tags",
+        "tags" : [
+          "Tags"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/page"
+          },
+          {
+            "$ref" : "#/components/parameters/size"
+          },
+          {
+            "$ref" : "#/components/parameters/search"
+          },
+          {
+            "$ref" : "#/components/parameters/tagSort"
+          },
+          {
+            "$ref" : "#/components/parameters/order"
+          }
+        ]
+      },
+      "post" : {
+        "operationId" : "createTag",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TagCreate"
+              }
+            }
+          }
+        },
+        "summary" : "Create a tag",
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagDetail"
+                }
+              }
+            },
+            "description" : "The details of a tag object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Creates a new tag object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "tags" : [
+          "Tags"
+        ]
+      },
+      "delete" : {
+        "operationId" : "deleteTags",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+                  "type" : "string",
+                  "description" : "Unique identifier",
+                  "format" : "uuid"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Bulk delete tags",
+        "responses" : {
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "204" : {
+            "$ref" : "#/components/responses/204"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Removes multiple tag objects at once",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "tags" : [
+          "Tags"
+        ]
+      }
+    },
+    "/categories/{categoryId}" : {
+      "get" : {
+        "operationId" : "getCategory",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Category details",
+        "responses" : {
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CategoryDetail"
+                }
+              }
+            },
+            "description" : "The details of a category object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Get the details of a category object",
+        "tags" : [
+          "Categories"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/categoryId"
+          }
+        ]
+      },
+      "put" : {
+        "operationId" : "updateCategory",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CategoryUpdate"
+              }
+            }
+          }
+        },
+        "summary" : "Update a category object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "responses" : {
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CategoryDetail"
+                }
+              }
+            },
+            "description" : "The details of the patched category object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Updates an entire category object",
+        "tags" : [
+          "Categories"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/categoryId"
+          }
+        ]
+      },
+      "patch" : {
+        "operationId" : "patchCategory",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CategoryPatch"
+              }
+            }
+          }
+        },
+        "summary" : "Patch a category object",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "responses" : {
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CategoryDetail"
+                }
+              }
+            },
+            "description" : "The details of the patched category object"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Patch the properties of a given category object",
+        "tags" : [
+          "Categories"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/categoryId"
+          }
+        ]
+      },
+      "delete" : {
+        "operationId" : "deleteCategory",
+        "security" : [
+          {
+            "bearerAuth" : [
+
+            ]
+          }
+        ],
+        "summary" : "Delete a category object",
+        "responses" : {
+          "403" : {
+            "$ref" : "#/components/responses/403"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/404"
+          },
+          "204" : {
+            "$ref" : "#/components/responses/204"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400"
+          }
+        },
+        "description" : "Removes a category object using the unique identifier",
+        "tags" : [
+          "Categories"
+        ],
+        "parameters" : [
+          {
+            "$ref" : "#/components/parameters/categoryId"
+          }
+        ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "TagUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "Tabby",
+            "description" : "Name of the tag"
+          }
+        },
+        "required" : [
+          "name"
+        ]
+      },
+      "PetCreate" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "default" : "available",
+            "enum" : [
+              "available",
+              "pending",
+              "sold"
+            ],
+            "type" : "string",
+            "description" : "Pet status in the store"
+          },
+          "tagId" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "imageUrl" : {
+            "example" : "https://placekitten.com/512/512",
+            "type" : "string",
+            "description" : "URL",
+            "format" : "uri"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Lucky",
+            "description" : "Name of the pet"
+          },
+          "categoryIds" : {
+            "type" : "array",
+            "items" : {
+              "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+              "type" : "string",
+              "description" : "Unique identifier",
+              "format" : "uuid"
+            }
+          }
+        },
+        "required" : [
+          "name",
+          "imageUrl",
+          "categoryIds",
+          "tagId"
+        ]
+      },
+      "PetPatch" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "default" : "available",
+            "enum" : [
+              "available",
+              "pending",
+              "sold"
+            ],
+            "type" : "string",
+            "description" : "Pet status in the store"
+          },
+          "tagId" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "imageUrl" : {
+            "example" : "https://placekitten.com/512/512",
+            "type" : "string",
+            "description" : "URL",
+            "format" : "uri"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Lucky",
+            "description" : "Name of the pet"
+          },
+          "categoryIds" : {
+            "type" : "array",
+            "items" : {
+              "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+              "type" : "string",
+              "description" : "Unique identifier",
+              "format" : "uuid"
+            }
+          }
+        }
+      },
+      "PetReference" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Lucky",
+            "description" : "Name of the pet"
+          }
+        },
+        "required" : [
+          "id",
+          "name"
+        ]
+      },
+      "ErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string",
+            "example" : "Something went wrong with the request.",
+            "description" : "The user facing error message"
+          },
+          "details" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "key" : {
+                  "type" : "string",
+                  "example" : "field",
+                  "description" : "The error key"
+                },
+                "message" : {
+                  "type" : "string",
+                  "example" : "Something is wrong with the field.",
+                  "description" : "The user facing error message"
+                }
+              },
+              "required" : [
+                "key",
+                "message"
+              ]
+            }
+          }
+        },
+        "required" : [
+          "message",
+          "details"
+        ]
+      },
+      "CategoryCreate" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "Cat",
+            "description" : "Name of the category"
+          }
+        },
+        "required" : [
+          "name"
+        ]
+      },
+      "CategoryReference" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Cat",
+            "description" : "Name of the category"
+          }
+        },
+        "required" : [
+          "id",
+          "name"
+        ]
+      },
+      "CategoryPatch" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "Cat",
+            "description" : "Name of the category"
+          }
+        }
+      },
+      "CategoryUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "Cat",
+            "description" : "Name of the category"
+          }
+        },
+        "required" : [
+          "name"
+        ]
+      },
+      "PetDetail" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "default" : "available",
+            "enum" : [
+              "available",
+              "pending",
+              "sold"
+            ],
+            "type" : "string",
+            "description" : "Pet status in the store"
+          },
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TagReference"
+            }
+          },
+          "imageUrl" : {
+            "example" : "https://placekitten.com/512/512",
+            "type" : "string",
+            "description" : "URL",
+            "format" : "uri"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Lucky",
+            "description" : "Name of the pet"
+          },
+          "category" : {
+            "$ref" : "#/components/schemas/CategoryReference"
+          }
+        },
+        "required" : [
+          "id",
+          "name",
+          "imageUrl",
+          "category",
+          "tags"
+        ]
+      },
+      "TagList" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Tabby",
+            "description" : "Name of the tag"
+          }
+        },
+        "required" : [
+          "id",
+          "name"
+        ]
+      },
+      "CategoryList" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Cat",
+            "description" : "Name of the category"
+          }
+        },
+        "required" : [
+          "id",
+          "name"
+        ]
+      },
+      "TagDetail" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Tabby",
+            "description" : "Name of the tag"
+          }
+        },
+        "required" : [
+          "id",
+          "name"
+        ]
+      },
+      "TagCreate" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "Tabby",
+            "description" : "Name of the tag"
+          }
+        },
+        "required" : [
+          "name"
+        ]
+      },
+      "PetList" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "default" : "available",
+            "enum" : [
+              "available",
+              "pending",
+              "sold"
+            ],
+            "type" : "string",
+            "description" : "Pet status in the store"
+          },
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "imageUrl" : {
+            "example" : "https://placekitten.com/512/512",
+            "type" : "string",
+            "description" : "URL",
+            "format" : "uri"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Lucky",
+            "description" : "Name of the pet"
+          }
+        },
+        "required" : [
+          "id",
+          "name",
+          "imageUrl"
+        ]
+      },
+      "PetUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "default" : "available",
+            "enum" : [
+              "available",
+              "pending",
+              "sold"
+            ],
+            "type" : "string",
+            "description" : "Pet status in the store"
+          },
+          "tagId" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "imageUrl" : {
+            "example" : "https://placekitten.com/512/512",
+            "type" : "string",
+            "description" : "URL",
+            "format" : "uri"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Lucky",
+            "description" : "Name of the pet"
+          },
+          "categoryIds" : {
+            "type" : "array",
+            "items" : {
+              "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+              "type" : "string",
+              "description" : "Unique identifier",
+              "format" : "uuid"
+            }
+          }
+        },
+        "required" : [
+          "name",
+          "imageUrl",
+          "categoryIds",
+          "tagId"
+        ]
+      },
+      "CategoryDetail" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Cat",
+            "description" : "Name of the category"
+          }
+        },
+        "required" : [
+          "id",
+          "name"
+        ]
+      },
+      "TagReference" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+            "type" : "string",
+            "description" : "Unique identifier",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Tabby",
+            "description" : "Name of the tag"
+          }
+        },
+        "required" : [
+          "id",
+          "name"
+        ]
+      },
+      "TagPatch" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "Tabby",
+            "description" : "Name of the tag"
+          }
+        }
+      }
+    },
+    "responses" : {
+      "403" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ErrorResponse"
+            }
+          }
+        },
+        "description" : "Forbidden"
+      },
+      "401" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ErrorResponse"
+            }
+          }
+        },
+        "description" : "Unauthorized"
+      },
+      "404" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ErrorResponse"
+            }
+          }
+        },
+        "description" : "Not found"
+      },
+      "204" : {
+        "description" : "No content"
+      },
+      "400" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ErrorResponse"
+            }
+          }
+        },
+        "description" : "Bad request"
+      }
+    },
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "bearerFormat" : "token",
+        "type" : "http",
+        "scheme" : "bearer",
+        "description" : "Authorization header using a Bearer token"
+      }
+    },
+    "parameters" : {
+      "search" : {
+        "in" : "query",
+        "name" : "search",
+        "schema" : {
+          "type" : "string",
+          "example" : ""
+        },
+        "description" : "Search with some value"
+      },
+      "petId" : {
+        "in" : "path",
+        "name" : "petId",
+        "required" : true,
+        "schema" : {
+          "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+          "type" : "string",
+          "description" : "Unique identifier",
+          "format" : "uuid"
+        }
+      },
+      "tagSort" : {
+        "in" : "query",
+        "name" : "sort",
+        "schema" : {
+          "default" : "name",
+          "enum" : [
+            "name"
+          ],
+          "type" : "string",
+          "example" : "name"
+        },
+        "description" : "Sort with the given value"
+      },
+      "petSort" : {
+        "in" : "query",
+        "name" : "sort",
+        "schema" : {
+          "default" : "name",
+          "enum" : [
+            "name",
+            "status"
+          ],
+          "type" : "string",
+          "example" : "name"
+        },
+        "description" : "Sort with the given value"
+      },
+      "order" : {
+        "in" : "query",
+        "name" : "order",
+        "schema" : {
+          "default" : "asc",
+          "enum" : [
+            "asc",
+            "desc"
+          ],
+          "type" : "string",
+          "example" : "asc"
+        },
+        "description" : "Order the results ascending or descending (asc, desc)"
+      },
+      "categoryId" : {
+        "in" : "path",
+        "name" : "categoryId",
+        "required" : true,
+        "schema" : {
+          "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+          "type" : "string",
+          "description" : "Unique identifier",
+          "format" : "uuid"
+        }
+      },
+      "categorySort" : {
+        "in" : "query",
+        "name" : "sort",
+        "schema" : {
+          "default" : "name",
+          "enum" : [
+            "name"
+          ],
+          "type" : "string",
+          "example" : "name"
+        },
+        "description" : "Sort with the given value"
+      },
+      "size" : {
+        "in" : "query",
+        "name" : "size",
+        "schema" : {
+          "default" : 50,
+          "title" : "size",
+          "type" : "integer",
+          "example" : 50,
+          "minimum" : 1
+        },
+        "description" : "Number of items per page"
+      },
+      "tagId" : {
+        "in" : "path",
+        "name" : "tagId",
+        "required" : true,
+        "schema" : {
+          "example" : "4DB59768-CDFA-4608-BA60-4673A3CB015E",
+          "type" : "string",
+          "description" : "Unique identifier",
+          "format" : "uuid"
+        }
+      },
+      "page" : {
+        "in" : "query",
+        "name" : "page",
+        "schema" : {
+          "default" : 1,
+          "title" : "page",
+          "type" : "integer",
+          "example" : 1,
+          "minimum" : 1
+        },
+        "description" : "Page offset of the list"
+      }
+    }
+  }
+}
